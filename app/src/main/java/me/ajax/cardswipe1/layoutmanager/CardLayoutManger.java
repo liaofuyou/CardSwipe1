@@ -41,7 +41,7 @@ public class CardLayoutManger extends RecyclerView.LayoutManager {
 
             int to = getWidth();
 
-            if (Math.abs(mAllOffset) < to / 2) {
+            if (Math.abs(mAllOffset) < to / 5) {
                 to = 0;
             }
 
@@ -54,7 +54,7 @@ public class CardLayoutManger extends RecyclerView.LayoutManager {
     private void startScroll(int from, final int to) {
 
         ValueAnimator animator = ValueAnimator.ofInt(from, to);
-        animator.setDuration(300);
+        animator.setDuration(200);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
@@ -138,11 +138,13 @@ public class CardLayoutManger extends RecyclerView.LayoutManager {
         for (int i = topCardIndex; i < getItemCount(); i++) {
 
             //缩放
-            if (i <= 3 + topCardIndex) {
+            if (i == topCardIndex) {
+                mAllItemScales.put(i, 100);
+            } else if (i < 3 + topCardIndex) {
                 int baseScale = 100 - (i - topCardIndex) * 10;
                 mAllItemScales.put(i, (int) (baseScale + 10 * slideFraction));
             } else {
-                mAllItemScales.put(i, 70);
+                mAllItemScales.put(i, 80);
             }
 
             //基本偏移
